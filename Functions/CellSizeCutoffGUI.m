@@ -61,7 +61,7 @@ voxscale = evalin('base','voxscale');
 ObjectList = evalin('base','ObjectList');
 udObjectList = flipud(ObjectList);%ObjectList is large to small, flip upside down so small is plotted first in blue.
 
-num = [1:3:(3*numObj+1)];
+num = 1:3:(3*numObj+1);
     fullimg = ones(s(1),s(2));
     progbar = waitbar(0,'Plotting...');
     for i = 1:numObj;
@@ -75,12 +75,12 @@ num = [1:3:(3*numObj+1)];
         se = strel('diamond',4);
         Outline = imdilate(OutlineImage,se); 
         fullimg(Outline(:,:)==1)=1;
-        fullimg(flatex(:,:)>1)=num(1,i+1);
+        fullimg(flatex(:,:)>1)=num(1,i+1); % this was '>1'
     end
 if isgraphics(progbar)
    close(progbar);
 end
-        
+   
 cmap = jet(max(fullimg(:)));
 cmap(1,:) = zeros(1,3);
 axes(handles.AllObjects);
